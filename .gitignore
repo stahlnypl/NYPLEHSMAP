@@ -134,4 +134,4 @@ static/Data/.DS_Store
 .gitignore
 
 # sveltekit
-# .svelte-kit
+.svelte-kit
