@@ -4,6 +4,7 @@
 	import { createClient } from '@supabase/supabase-js';
 	import { PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
+	
 
 
 	// Initialize Supabase client
@@ -38,6 +39,7 @@
 			await import('leaflet.locatecontrol');
 			await import('leaflet.control.layers.tree');
 			await import('leaflet.control.layers.tree/L.Control.Layers.Tree.css');
+			await import('leaflet-search/dist/leaflet-search.src.css');
 			await import('leaflet-search');
 
 			const initialState = { lng: lng, lat: lat, zoom: zoom };
@@ -579,6 +581,7 @@
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
+	@import 'leaflet-search/dist/leaflet-search.src.css';
 	section div {
 		height: 100vh;
 	}

@@ -1,5 +1,5 @@
 {
-	"name": "floydwebmap",
+	"name": "nyplehsmap",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -24,6 +24,7 @@
 		"eslint-plugin-svelte": "^2.30.0",
 		"gh-pages": "^6.1.0",
 		"leaflet": "^1.9.4",
+		"leaflet-search": "^4.0.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
 		"svelte": "^4.0.0",
@@ -35,7 +36,6 @@
 		"@ansur/leaflet-pulse-icon": "^0.1.1",
 		"@picocss/pico": "^1.5.10",
 		"@supabase/supabase-js": "^2.26.0",
-		"leaflet-search": "^3.0.9",
 		"leaflet.control.layers.tree": "^1.1.0",
 		"leaflet.locatecontrol": "^0.79.0"
 	}
