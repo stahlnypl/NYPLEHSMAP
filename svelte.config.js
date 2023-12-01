@@ -15,7 +15,7 @@ const config = {
             strict: true
         }),
         paths: {
-            base: process.env.NODE_ENV === 'production' ? '/NYPLEHSMAP' : '',
+            base: process.env.NODE_ENV === 'production' ? '/NYPLEHSMAP/index.html' : '',
         }
     }
 };
