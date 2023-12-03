@@ -175,13 +175,6 @@
 
 					console.log('libs: ', libs.libraries)
 
-					var libData = {};
-					libs.libraries.forEach((f, i) => {
-						var objectKeyName = f.code;
-						libData[objectKeyName] = f
-
-					});
-					// console.log('new object: ', libData)
 
 				// Adding tooltips to each Marker
 				libs.libraries.forEach((e, i) => {
@@ -198,66 +191,66 @@
 
 					// Creating Markers, Assigning icons, and Adding to Layer
 					if (e.code === 'SASB') {
-						markers[i] = L.marker([e.Y, e.X], { icon: sasbIcon, title: e.code })
+						markers[e.code] = L.marker([e.Y, e.X], { icon: sasbIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-						markersLayer.addLayer(markers[i]);
+						markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LPA') {
-						markers[i] = L.marker([e.Y, e.X], { icon: lpaIcon, title: e.code })
+						markers[e.code] = L.marker([e.Y, e.X], { icon: lpaIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[i]);
+							markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'SCH') {
-						markers[i] = L.marker([e.Y, e.X], { icon: schIcon, title: e.code })
+						markers[e.code] = L.marker([e.Y, e.X], { icon: schIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[i]);
+							markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LSC') {
-						markers[i] = L.marker([e.Y, e.X], { icon: lscIcon, title: e.code })
+						markers[e.code] = L.marker([e.Y, e.X], { icon: lscIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[i]);
+							markersLayer.addLayer(markers[e.code]);
 					} else {
-						markers[i] = L.marker([e.Y, e.X], { icon, title: e.code })
+						markers[e.code] = L.marker([e.Y, e.X], { icon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[i]);
+							markersLayer.addLayer(markers[e.code]);
 					}
 
 					// Marking Sites that are closed
 					if(e.status === 'Closed') {
-						markers[i].setOpacity(.25);
+						markers[e.code].setOpacity(.25);
 						
 					}
 
 
-					markers[i].alt = e.name;
+					markers[e.code].alt = e.name;
 
 					if (e.network === 'W-BX') {
-						markers[i].addTo(wbronx);
+						markers[e.code].addTo(wbronx);
 					} else if (e.network === 'C-BX') {
-						markers[i].addTo(cbronx);
+						markers[e.code].addTo(cbronx);
 					} else if (e.network === 'E-BX') {
-						markers[i].addTo(ebronx);
+						markers[e.code].addTo(ebronx);
 					} else if (e.network === 'W-MH') {
-						markers[i].addTo(wman);
+						markers[e.code].addTo(wman);
 					} else if (e.network === 'E-MH') {
-						markers[i].addTo(eman);
+						markers[e.code].addTo(eman);
 					} else if (e.network === 'L-MH') {
-						markers[i].addTo(lman);
+						markers[e.code].addTo(lman);
 					} else if (e.network === 'SI') {
-						markers[i].addTo(sisle);
+						markers[e.code].addTo(sisle);
 					} else if (e.network === 'NYPL') {
-						markers[i].addTo(adminSites);
+						markers[e.code].addTo(adminSites);
 					}
 
 					if (e.name != null) {
-						markers[i].addTo(allSites);
+						markers[e.code].addTo(allSites);
 					}
 
 					// console.log(e);
@@ -294,10 +287,10 @@
 					</table>
 										`;
 
-					markers[i].bindPopup(popupContent);
+					markers[e.code].bindPopup(popupContent);
 
 					// Marker Properties Array Check
-					// console.log(i, markers[i].alt, e.name)
+					// console.log(i, markers[e.code].alt, e.name)
 					;
 				});
 
@@ -314,7 +307,7 @@
 
 				const markerTitle = options.title
 
-				console.log('Markers: ', markers.values())
+				console.log('Markers: ', markers, markers['SASB'])
 				
 
 				var mapRoutes = {
@@ -334,18 +327,18 @@
 											// layer: wbronx,
 											collapsed: true,
 											children: [
-												{ label: 'Francis Martin', layer: markers[27] },
-												{ label: 'Grand Concourse', layer: markers[30] },
-												{ label: 'High Bridge', layer: markers[35] },
-												{ label: 'Jerome Park', layer: markers[41] },
-												{ label: 'Kingsbridge', layer: markers[42] },
-												{ label: 'Melrose', layer: markers[46] },
-												{ label: 'Mosholu', layer: markers[50] },
-												{ label: 'Riverdale', layer: markers[62] },
-												{ label: 'Sedgwick', layer: markers[66] },
-												{ label: 'Spuyten Duyvil', layer: markers[70] },
-												{ label: 'Van Cortlandt', layer: markers[80] },
-												{ label: 'Woodlawn Heights', layer: markers[90] }
+												{ label: 'Francis Martin', layer: markers['FXR'] },
+												{ label: 'Grand Concourse', layer: markers['GD'] },
+												{ label: 'High Bridge', layer: markers['HB'] },
+												{ label: 'Jerome Park', layer: markers['JP'] },
+												{ label: 'Kingsbridge', layer: markers['KBR'] },
+												{ label: 'Melrose', layer: markers['ME'] },
+												{ label: 'Mosholu', layer: markers['MO'] },
+												{ label: 'Riverdale', layer: markers['RD'] },
+												{ label: 'Sedgwick', layer: markers['SD'] },
+												{ label: 'Spuyten Duyvil', layer: markers['DY'] },
+												{ label: 'Van Cortlandt', layer: markers['VC'] },
+												{ label: 'Woodlawn Heights', layer: markers['WL'] }
 											]
 										},
 										{
@@ -354,18 +347,18 @@
 											// layer: cbronx,
 											collapsed: true,
 											children: [
-												{ label: 'Allerton', layer: markers[9] },
-												{ label: 'Belmont', layer: markers[13] },
-												{ label: 'Bronx Library Center', layer: markers[15] },
-												{ label: "Clasons's Point", layer: markers[19] },
-												{ label: "Hunt's Point", layer: markers[38] },
-												{ label: 'Morris Park', layer: markers[48] },
-												{ label: 'Morrisania', layer: markers[49] },
-												{ label: 'Mott Haven', layer: markers[51] },
-												{ label: 'Pelham Parkway-Van Nest', layer: markers[59] },
-												{ label: 'Tremont', layer: markers[79] },
-												{ label: 'West Farms', layer: markers[84] },
-												{ label: 'Woodstock', layer: markers[91] }
+												{ label: 'Allerton', layer: markers['AL'] },
+												{ label: 'Belmont', layer: markers['BER'] },
+												{ label: 'Bronx Library Center', layer: markers['BLC'] },
+												{ label: "Clasons's Point", layer: markers['CP'] },
+												{ label: "Hunt's Point", layer: markers['HSR'] },
+												{ label: 'Morris Park', layer: markers['MP'] },
+												{ label: 'Morrisania', layer: markers['MR'] },
+												{ label: 'Mott Haven', layer: markers['MH'] },
+												{ label: 'Pelham Parkway-Van Nest', layer: markers['VN'] },
+												{ label: 'Tremont', layer: markers['TM'] },
+												{ label: 'West Farms', layer: markers['WF'] },
+												{ label: 'Woodstock', layer: markers['WO'] }
 											]
 										},
 										{
@@ -374,17 +367,17 @@
 											// layer: ebronx,
 											collapsed: true,
 											children: [
-												{ label: 'Baychester', layer: markers[12] },
-												{ label: 'Castle Hill', layer: markers[16] },
-												{ label: 'City Island', layer: markers[18] },
-												{ label: 'Eastchester', layer: markers[23] },
-												{ label: 'Edenwald', layer: markers[24] },
-												{ label: 'Parkchester', layer: markers[57] },
-												{ label: 'Pelham Bay', layer: markers[58] },
-												{ label: 'Soundview', layer: markers[68] },
-												{ label: "Throg's Neck", layer: markers[75] },
-												{ label: 'Wakefield', layer: markers[81] },
-												{ label: 'Westchester Square', layer: markers[89] }
+												{ label: 'Baychester', layer: markers['BAR'] },
+												{ label: 'Castle Hill', layer: markers['CT'] },
+												{ label: 'City Island', layer: markers['CI'] },
+												{ label: 'Eastchester', layer: markers['EA'] },
+												{ label: 'Edenwald', layer: markers['EW'] },
+												{ label: 'Parkchester', layer: markers['PKR'] },
+												{ label: 'Pelham Bay', layer: markers['PM'] },
+												{ label: 'Soundview', layer: markers['SV'] },
+												{ label: "Throg's Neck", layer: markers['TG'] },
+												{ label: 'Wakefield', layer: markers['WK'] },
+												{ label: 'Westchester Square', layer: markers['WT'] }
 											]
 										}
 									]
@@ -398,19 +391,19 @@
 											// layer: wman,
 											collapsed: true,
 											children: [
-												{ label: '115th St', layer: markers[2] },
-												{ label: 'Bloomingdale', layer: markers[14] },
-												{ label: 'Columbus', layer: markers[20] },
-												{ label: 'Fort Washington', layer: markers[26] },
-												{ label: 'George Bruce', layer: markers[28] },
-												{ label: 'Hamilton Grange', layer: markers[33] },
-												{ label: 'Inwood', layer: markers[39] },
-												{ label: "Macomb's Bridge", layer: markers[44] },
-												{ label: 'Morningside Heights', layer: markers[47] },
-												{ label: 'Muhlenberg', layer: markers[52] },
-												{ label: 'Riverside', layer: markers[63] },
-												{ label: 'St. Agnes', layer: markers[71] },
-												{ label: 'Washington Heights', layer: markers[82] }
+												{ label: '115th St', layer: markers['HU'] },
+												{ label: 'Bloomingdale', layer: markers['BLR'] },
+												{ label: 'Columbus', layer: markers['CS'] },
+												{ label: 'Fort Washington', layer: markers['FW'] },
+												{ label: 'George Bruce', layer: markers['BR'] },
+												{ label: 'Hamilton Grange', layer: markers['HG'] },
+												{ label: 'Inwood', layer: markers['INR'] },
+												{ label: "Macomb's Bridge", layer: markers['MB'] },
+												{ label: 'Morningside Heights', layer: markers['CL'] },
+												{ label: 'Muhlenberg', layer: markers['MU'] },
+												{ label: 'Riverside', layer: markers['R'] },
+												{ label: 'St. Agnes', layer: markers['SA'] },
+												{ label: 'Washington Heights', layer: markers['WH'] }
 											]
 										},
 										{
@@ -419,19 +412,19 @@
 											// layer: eman,
 											collapsed: true,
 											children: [
-												{ label: '125th St', layer: markers[3] },
-												{ label: '53rd St', layer: markers[4] },
-												{ label: '58th St', layer: markers[5] },
-												{ label: '67th St', layer: markers[6] },
-												{ label: '96th St', layer: markers[7] },
-												{ label: 'Aguilar', layer: markers[8] },
-												{ label: 'Countee Cullen', layer: markers[21] },
-												{ label: 'Grand Central', layer: markers[29] },
-												{ label: 'Harlem', layer: markers[34] },
-												{ label: 'Roosevelt Island', layer: markers[64] },
-												{ label: 'Cathedral', layer: markers[74] },
-												{ label: 'Webster', layer: markers[83] },
-												{ label: 'Yorkville', layer: markers[92] }
+												{ label: '125th St', layer: markers['HD'] },
+												{ label: '53rd St', layer: markers['53STR'] },
+												{ label: '58th St', layer: markers['FE'] },
+												{ label: '67th St', layer: markers['SS'] },
+												{ label: '96th St', layer: markers['NRS'] },
+												{ label: 'Aguilar', layer: markers['AG'] },
+												{ label: 'Countee Cullen', layer: markers['CC'] },
+												{ label: 'Grand Central', layer: markers['GCB'] },
+												{ label: 'Harlem', layer: markers['HL'] },
+												{ label: 'Roosevelt Island', layer: markers['RI'] },
+												{ label: 'Cathedral', layer: markers['CA'] },
+												{ label: 'Webster', layer: markers['WB'] },
+												{ label: 'Yorkville', layer: markers['YV'] }
 											]
 										},
 										{
@@ -440,20 +433,20 @@
 											// layer: lman,
 											collapsed: true,
 											children: [
-												{ label: 'Andrew Heiskell', layer: markers[10] },
-												{ label: 'Battery Park', layer: markers[11] },
-												{ label: 'Chatham Square', layer: markers[17] },
-												{ label: 'Epiphany', layer: markers[25] },
-												{ label: 'Hamilton Fish Park', layer: markers[32] },
-												{ label: 'Hudson Park', layer: markers[36] },
-												{ label: 'Jefferson Market', layer: markers[40] },
-												{ label: 'Kips Bay', layer: markers[43] },
-												{ label: 'Mulberry St', layer: markers[53] },
-												{ label: 'New Amsterdam', layer: markers[54] },
-												{ label: 'Ottendorfer', layer: markers[56] },
-												{ label: 'Science, Industry, & Business', layer: markers[65] },
-												{ label: 'Seward Park', layer: markers[67] },
-												{ label: "Tompkin's Square", layer: markers[77] }
+												{ label: 'Andrew Heiskell', layer: markers['LB'] },
+												{ label: 'Battery Park', layer: markers['BPC'] },
+												{ label: 'Chatham Square', layer: markers['CHR'] },
+												{ label: 'Epiphany', layer: markers['EP'] },
+												{ label: 'Hamilton Fish Park', layer: markers['HF'] },
+												{ label: 'Hudson Park', layer: markers['HP'] },
+												{ label: 'Jefferson Market', layer: markers['JMR'] },
+												{ label: 'Kips Bay', layer: markers['KP'] },
+												{ label: 'Mulberry St', layer: markers['ML'] },
+												{ label: 'New Amsterdam', layer: markers['LM'] },
+												{ label: 'Ottendorfer', layer: markers['OT'] },
+												{ label: 'Science, Industry, & Business', layer: markers['SIBL'] },
+												{ label: 'Seward Park', layer: markers['SE'] },
+												{ label: "Tompkin's Square", layer: markers['TS'] }
 											]
 										}
 									]
@@ -464,19 +457,19 @@
 									selectAllCheckbox: true,
 									collapsed: true,
 									children: [
-										{ label: 'Dongan Hills', layer: markers[22] },
-										{ label: 'Great Kills', layer: markers[31] },
-										{ label: 'Huguenot Park', layer: markers[37] },
-										{ label: 'Mariners Harbor', layer: markers[45] },
-										{ label: 'New Dorp', layer: markers[55] },
-										{ label: 'Port Richmond', layer: markers[60] },
-										{ label: 'Richmondtown', layer: markers[61] },
-										{ label: 'South Beach', layer: markers[69] },
-										{ label: 'St. George', layer: markers[72] },
-										{ label: 'Stapleton', layer: markers[73] },
-										{ label: 'Todt Hill-Westerleigh', layer: markers[76] },
-										{ label: 'Tottenville', layer: markers[78] },
-										{ label: 'West New Brighton', layer: markers[88] }
+										{ label: 'Dongan Hills', layer: markers['DH'] },
+										{ label: 'Great Kills', layer: markers['GK'] },
+										{ label: 'Huguenot Park', layer: markers['HK'] },
+										{ label: 'Mariners Harbor', layer: markers['MN'] },
+										{ label: 'New Dorp', layer: markers['NDR'] },
+										{ label: 'Port Richmond', layer: markers['PR'] },
+										{ label: 'Richmondtown', layer: markers['RT'] },
+										{ label: 'South Beach', layer: markers['SB'] },
+										{ label: 'St. George', layer: markers['SGC'] },
+										{ label: 'Stapleton', layer: markers['ST'] },
+										{ label: 'Todt Hill-Westerleigh', layer: markers['THR'] },
+										{ label: 'Tottenville', layer: markers['TV'] },
+										{ label: 'West New Brighton', layer: markers['NB'] }
 									]
 								},
 								{
@@ -485,11 +478,11 @@
 									selectAllCheckbox: true,
 									collapsed: true,
 									children: [
-										{ label: 'Library Services Center', layer: markers[0] },
-										{ label: 'Library for The Performing Arts', layer: markers[85] },
-										{ label: 'Schomburg', layer: markers[86] },
-										{ label: 'Stavros Niarchos', layer: markers[1] },
-										{ label: 'Stephen A Schwartzman', layer: markers.find((e) => e.options.title === 'SASB') }
+										{ label: 'Library Services Center', layer: markers['LSC'] },
+										{ label: 'Library for The Performing Arts', layer: markers['LPA'] },
+										{ label: 'Schomburg', layer: markers['SCH'] },
+										{ label: 'Stavros Niarchos', layer: markers['SNFL'] },
+										{ label: 'Stephen A Schwartzman', layer: markers['SASB'] }
 									]
 								}
 							]
@@ -575,7 +568,7 @@
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
 	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)}
+		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.1a
 	</div>
 </section>
 
@@ -624,5 +617,6 @@
 		margin: 12px;
 		border-radius: 4px;
 		height: auto;
+		line-height: 1.5;
 	}
 </style>

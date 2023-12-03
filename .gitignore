@@ -1,11 +1,8 @@
-
-# Dependency directories
+.DS_Store
 node_modules
-
-# dotenv environment variable files
+/build
+/.svelte-kit
+/package
 .env
-
-# sveltekit
-# .svelte-kit
-
-.DS_store
+.env.*
+!.env.example
