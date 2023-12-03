@@ -503,7 +503,7 @@
 					'body > div > main > section > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section'
 				);
 
-				var CollapseBtn = `<div><img class="layerControlToggle" style="float:right;" src="/Data/images/lct_button.png"></div>`;
+				var CollapseBtn = `<div><img class="layerControlToggle" style="float:right;" src="https://raw.githubusercontent.com/stahlnypl/NYPLEHSMAP/main/static/Data/images/lct_button.png"></div>`;
 
 				LayerControlContainer.insertAdjacentHTML('afterbegin', CollapseBtn);
 
@@ -568,7 +568,7 @@
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
 	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.1a
+		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.2a
 	</div>
 </section>
 
