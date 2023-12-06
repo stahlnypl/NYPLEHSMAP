@@ -101,7 +101,7 @@
 			var sisle = L.featureGroup();
 			var allSites = L.featureGroup();
 			var adminSites = L.featureGroup();
-			var routeLayers;
+			var aedCheck = L.featureGroup();
 
 			async function fetchData() {
 				const { data } = await supabase.from('libraries').select('*');
@@ -251,6 +251,10 @@
 
 					if (e.name != null) {
 						markers[e.code].addTo(allSites);
+					}
+
+					if (e.aed_check != true) {
+						markers[e.code].addTo(aedCheck);
 					}
 
 					// console.log(e);
@@ -488,10 +492,10 @@
 							]
 						},
 						{
-							label: 'Problems',
+							label: 'Projects',
 							selectAllCheckbox: false,
 							collapsed: false,
-							children: [{ label: 'Dead Head', layer: routeLayers }]
+							children: [{ label: 'AEDs', layer: aedCheck }]
 						}
 					]
 				};
