@@ -572,7 +572,7 @@
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
 	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.2a
+		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.3a
 	</div>
 </section>
 
