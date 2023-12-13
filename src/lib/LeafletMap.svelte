@@ -570,7 +570,7 @@
 	</div>
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.3a
+		0.0.4a
 	</div>
 </section>
 

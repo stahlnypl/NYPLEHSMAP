@@ -14,11 +14,12 @@ const LeafletMap = create_ssr_component(($$result, $$props, $$bindings, slots) =
   let lng, lat, zoom;
   lng = -74;
   lat = 40.7;
-  zoom = 11;
+  zoom = 10;
   onDestroy(async () => {
   });
   $$result.css.add(css);
-  return `<section class="svelte-jiincz"><div class="svelte-jiincz"${add_attribute("this", mapElement, 0)}></div> <div class="header-bg svelte-jiincz" data-svelte-h="svelte-18idny7"><span class="svelte-jiincz">NYPL Environmental Health &amp; Safety Map</span></div> <div class="sidebar svelte-jiincz">Longitude: ${escape(lng.toFixed(4))} | Latitude: ${escape(lat.toFixed(4))} | Zoom: ${escape(zoom.toFixed(2))} <br>v: 0.0.3a</div> </section>`;
+  return `<section class="svelte-jiincz"><div class="svelte-jiincz"${add_attribute("this", mapElement, 0)}></div> <div class="header-bg svelte-jiincz" data-svelte-h="svelte-18idny7"><span class="svelte-jiincz">NYPL Environmental Health &amp; Safety Map</span></div> <div class="sidebar svelte-jiincz">Longitude: ${escape(lng.toFixed(4))} | Latitude: ${escape(lat.toFixed(4))} | Zoom: ${escape(zoom.toFixed(2))} <br>v:
+		0.0.4a</div> </section>`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<main>${validate_component(LeafletMap, "LeafletMap").$$render($$result, {}, {}, {})}</main>`;
