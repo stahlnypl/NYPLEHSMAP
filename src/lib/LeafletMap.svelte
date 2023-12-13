@@ -4,17 +4,15 @@
 	import { createClient } from '@supabase/supabase-js';
 	import { PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
-	
-
 
 	// Initialize Supabase client
 	const supabaseUrl = 'https://fcmkyfkiiblxmbgwuegf.supabase.co';
 	const supabaseKey = PUBLIC_SUPABASE_ANON_KEY;
 	const supabase = createClient(supabaseUrl, supabaseKey, {
-  auth: {
-    persistSession: false
-  
-}});
+		auth: {
+			persistSession: false
+		}
+	});
 
 	// console.log('Supabase: ', supabase);
 
@@ -24,7 +22,7 @@
 
 	lng = -74.0;
 	lat = 40.7;
-	zoom = 11;
+	zoom = 10;
 
 	function updateData() {
 		zoom = map.getZoom();
@@ -33,7 +31,7 @@
 	}
 
 	onMount(async () => {
-		console.log(window.innerWidth)
+		console.log(window.innerWidth);
 		if (browser) {
 			const L = await import('leaflet');
 			await import('leaflet.locatecontrol');
@@ -42,14 +40,20 @@
 			await import('leaflet-search/dist/leaflet-search.src.css');
 			await import('leaflet-search');
 
+			if (window.innerWidth < 800) {
+				zoom = 10;
+			} else {
+				zoom = 11;
+			}
+
 			const initialState = { lng: lng, lat: lat, zoom: zoom };
 
-			map = L.map(mapElement, { zoomControl: true, maxZoom: 25, minZoom: 11 }).setView(
+			map = L.map(mapElement, { zoomControl: true, maxZoom: 25, minZoom: 10 }).setView(
 				[initialState.lat, initialState.lng],
 				initialState.zoom
 			);
 
-			// console.log('Initial Bounds: ', map.getBounds());
+			console.log('Initial Bounds: ', map.getBounds());
 
 			map.setMaxBounds(map.getBounds());
 
@@ -61,7 +65,7 @@
 				{
 					attribution:
 						'© <a href="https://www.mapbox.com/contribute/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-						maxZoom: 25
+					maxZoom: 25
 				}
 			).addTo(map);
 
@@ -171,10 +175,9 @@
 
 				let markers = [];
 				var markersLayer = new L.LayerGroup();
-					map.addLayer(markersLayer);
+				map.addLayer(markersLayer);
 
-					console.log('libs: ', libs.libraries)
-
+				console.log('libs: ', libs.libraries);
 
 				// Adding tooltips to each Marker
 				libs.libraries.forEach((e, i) => {
@@ -186,8 +189,6 @@
 					});
 
 					// console.log(e)
-
-
 
 					// Creating Markers, Assigning icons, and Adding to Layer
 					if (e.code === 'SASB') {
@@ -201,33 +202,31 @@
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[e.code]);
+						markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'SCH') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: schIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[e.code]);
+						markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LSC') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: lscIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[e.code]);
+						markersLayer.addLayer(markers[e.code]);
 					} else {
 						markers[e.code] = L.marker([e.Y, e.X], { icon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
-							markersLayer.addLayer(markers[e.code]);
+						markersLayer.addLayer(markers[e.code]);
 					}
 
 					// Marking Sites that are closed
-					if(e.status === 'Closed') {
-						markers[e.code].setOpacity(.25);
-						
+					if (e.status === 'Closed') {
+						markers[e.code].setOpacity(0.25);
 					}
-
 
 					markers[e.code].alt = e.name;
 
@@ -295,7 +294,6 @@
 
 					// Marker Properties Array Check
 					// console.log(i, markers[e.code].alt, e.name)
-					;
 				});
 
 				//... adding data in searchLayer ...
@@ -309,10 +307,9 @@
 				);
 				//searchLayer is a L.LayerGroup contains searched markers
 
-				const markerTitle = options.title
+				const markerTitle = options.title;
 
-				console.log('Markers: ', markers, markers['SASB'])
-				
+				console.log('Markers: ', markers, markers['SASB']);
 
 				var mapRoutes = {
 					label: 'Branches',
@@ -572,7 +569,8 @@
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
 	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br>v: 0.0.3a
+		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
+		0.0.3a
 	</div>
 </section>
 
