@@ -458,6 +458,7 @@
 									selectAllCheckbox: true,
 									collapsed: true,
 									children: [
+										{ label: 'Charleston', layer: markers['CN'] },
 										{ label: 'Dongan Hills', layer: markers['DH'] },
 										{ label: 'Great Kills', layer: markers['GK'] },
 										{ label: 'Huguenot Park', layer: markers['HK'] },
