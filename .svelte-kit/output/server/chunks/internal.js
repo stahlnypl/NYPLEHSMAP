@@ -104,7 +104,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n\n<head>\n	<meta charset="utf-8" />\n	<link rel="icon" href="' + assets2 + '/favicon.svg" />\n	<link rel="apple-touch-icon" href="' + assets2 + '/touch-icon-iphone.png">\n	<link rel="apple-touch-icon" sizes="152x152" href="' + assets2 + '/favicon_152.png">\n	<link rel="apple-touch-icon" sizes="180x180" href="' + assets2 + '/favicon_180.png">\n	<link rel="apple-touch-icon" sizes="167x167" href="' + assets2 + '/favicon_167.png">\n\n	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />\n	<meta name="viewport" content="width=device-width" />\n	<meta name="apple-mobile-web-app-capable" content="yes">\n	<style type="text/css" href="css/app.css"></style>\n	<title>NYPL Environmental Health & Safety Map</title>\n	' + head + '\n</head>\n\n<body style="margin:0">\n	<div>' + body + "</div>\n</body>\n\n</html>",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n\n<head>\n	<meta charset="utf-8" />\n	<link rel="icon" href="' + assets2 + '/favicon.svg" />\n	<link rel="apple-touch-icon" href="' + assets2 + '/touch-icon-iphone.png">\n	<!-- <link rel="apple-touch-icon" sizes="152x152" href="' + assets2 + '/favicon_152.png">\n	<link rel="apple-touch-icon" sizes="180x180" href="' + assets2 + '/favicon_180.png">\n	<link rel="apple-touch-icon" sizes="167x167" href="' + assets2 + '/favicon_167.png"> -->\n\n	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />\n	<meta name="viewport" content="width=device-width" />\n	<meta name="apple-mobile-web-app-capable" content="yes">\n	<style type="text/css" href="css/app.css"></style>\n	<title>NYPL Environmental Health & Safety Map</title>\n	' + head + '\n</head>\n\n<body style="margin:0">\n	<div>' + body + "</div>\n</body>\n\n</html>",
     error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -176,7 +176,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1ybf993"
+  version_hash: "1183mfm"
 };
 function get_hooks() {
   return {};
