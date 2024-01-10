@@ -173,6 +173,12 @@
 					iconSize: [15, 15]
 				});
 
+				var tnIcon = L.icon({
+					iconUrl:
+						'https://raw.githubusercontent.com/stahlenstein/nyplehsMap/main/static/icons/270mad.svg',
+					iconSize: [15, 15]
+				});
+
 				let markers = [];
 				var markersLayer = new L.LayerGroup();
 				map.addLayer(markersLayer);
@@ -211,6 +217,12 @@
 						markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LSC') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: lscIcon, title: e.code })
+							.bindTooltip(tooltip)
+							.openTooltip()
+							.addTo(map);
+						markersLayer.addLayer(markers[e.code]);
+					} else if (e.code === 'TN') {
+						markers[e.code] = L.marker([e.Y, e.X], { icon: tnIcon, title: e.code })
 							.bindTooltip(tooltip)
 							.openTooltip()
 							.addTo(map);
@@ -484,7 +496,8 @@
 										{ label: 'Library for The Performing Arts', layer: markers['LPA'] },
 										{ label: 'Schomburg', layer: markers['SCH'] },
 										{ label: 'Stavros Niarchos', layer: markers['SNFL'] },
-										{ label: 'Stephen A Schwartzman', layer: markers['SASB'] }
+										{ label: 'Stephen A Schwartzman', layer: markers['SASB'] },
+										{ label: '270 Madison', layer: markers['TN'] }
 									]
 								}
 							]
