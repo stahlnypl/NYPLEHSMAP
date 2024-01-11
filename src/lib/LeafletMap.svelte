@@ -16,20 +16,24 @@
 
 	// console.log('Supabase: ', supabase);
 
+	// Calling Empty Variables
 	let mapElement;
 	let map;
 	let lng, lat, zoom;
 
+	// Assigning Initial View Values
 	lng = -74.0;
 	lat = 40.7;
 	zoom = 10;
 
+	// Function for Developer Element
 	function updateData() {
 		zoom = map.getZoom();
 		lng = map.getCenter().lng;
 		lat = map.getCenter().lat;
 	}
 
+	// Initalizing Leaflet Map on Mount of Svelte
 	onMount(async () => {
 		console.log(window.innerWidth);
 		if (browser) {
@@ -40,25 +44,29 @@
 			await import('leaflet-search/dist/leaflet-search.src.css');
 			await import('leaflet-search');
 
+			// Zoom Value Dependant on Screen Size (Phone vs Desktop)
 			if (window.innerWidth < 800) {
 				zoom = 10;
 			} else {
 				zoom = 11;
 			}
 
+			// Setting up Initial View for Leaflet Map
 			const initialState = { lng: lng, lat: lat, zoom: zoom };
 
+			// Createing Map Element and Settings
 			map = L.map(mapElement, { zoomControl: true, maxZoom: 25, minZoom: 10 }).setView(
 				[initialState.lat, initialState.lng],
 				initialState.zoom
 			);
 
-			console.log('Initial Bounds: ', map.getBounds());
-
+			// Setting Maximum Bounds to Focus on only NYC
 			map.setMaxBounds(map.getBounds());
 
+			// Assigning Mapbox API Token
 			var accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+			// Creating MapBox Tile Layer
 			L.tileLayer(
 				'https://api.mapbox.com/styles/v1/stahlstradamus/cloecokpb001v01p80phr35aj/tiles/{z}/{x}/{y}?access_token=' +
 					accessToken,
@@ -69,21 +77,24 @@
 				}
 			).addTo(map);
 
+			// Event listener to Display Location Data in Developer Element
 			map.on('move', () => {
 				updateData();
 			});
 
+			// Assigning Base Maps for Layer Control Tree
 			var baseTree = {
 				label: 'Base Maps',
 				children: []
 			};
 
+			// Options for Layer Control Tree
 			var options = {
 				collapseAll: '',
 				collapsed: false
 			};
 
-			// display/hide lat long info
+			// Display/Hide Developer Lat Long Info
 			document.addEventListener('keypress', (e) => {
 				if (e.code == 'Backquote') {
 					console.log('wow!');
@@ -96,6 +107,7 @@
 				}
 			});
 
+			// Setting Variables for Layer Control Tree
 			var wbronx = L.featureGroup();
 			var cbronx = L.featureGroup();
 			var ebronx = L.featureGroup();
@@ -107,6 +119,7 @@
 			var adminSites = L.featureGroup();
 			var aedCheck = L.featureGroup();
 
+			// Asyncronous Fucction to Call Supabase Library Data
 			async function fetchData() {
 				const { data } = await supabase.from('libraries').select('*');
 				// console.log(data);
@@ -142,6 +155,8 @@
 				lastZoom = zoom;
 			});
 
+
+			// Asyncronous Function to create Markers for Data
 			async function addMarkersToMap(map, libs) {
 				var icon = L.icon({
 					iconUrl:
@@ -179,6 +194,7 @@
 					iconSize: [15, 15]
 				});
 
+				// Setting Variables for Marker Groups
 				let markers = [];
 				var markersLayer = new L.LayerGroup();
 				map.addLayer(markersLayer);
@@ -242,6 +258,7 @@
 
 					markers[e.code].alt = e.name;
 
+					// Logic for Grouping Libraries into Networks
 					if (e.network === 'W-BX') {
 						markers[e.code].addTo(wbronx);
 					} else if (e.network === 'C-BX') {
@@ -270,6 +287,7 @@
 
 					// console.log(e);
 
+					// HTML for Marker Popup Content
 					var popupContent = `
 										<table>
 					  <thead>
@@ -302,6 +320,7 @@
 					</table>
 										`;
 
+					// Binding Pop Content to Correct Marker
 					markers[e.code].bindPopup(popupContent);
 
 					// Marker Properties Array Check
@@ -317,12 +336,11 @@
 						marker: false
 					})
 				);
-				//searchLayer is a L.LayerGroup contains searched markers
 
-				const markerTitle = options.title;
+				// Checking Marker ID
+				// console.log('Markers: ', markers, markers['SASB']);
 
-				console.log('Markers: ', markers, markers['SASB']);
-
+				// Assigning Data to Layer Control Data
 				var mapRoutes = {
 					label: 'Branches',
 					selectAllCheckbox: true,
@@ -510,22 +528,30 @@
 						}
 					]
 				};
+
+				// Final Assignment and Creation of Layer Control Tree
 				const treeLayerControl = L.control.layers.tree(baseTree, mapRoutes, options);
 
+				// Adding Layer Control Tree to Map
 				treeLayerControl.addTo(map);
 
+				// Selection of the Layer Control Tree Container to add 'Close Button'
 				var LayerControlContainer = document.querySelector(
 					'body > div > main > section > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section'
 				);
 
+				// Creating 'Close' Button
 				var CollapseBtn = `<div><img class="layerControlToggle" style="float:right;" src="https://raw.githubusercontent.com/stahlnypl/NYPLEHSMAP/main/static/Data/images/lct_button.png"></div>`;
 
+				// Inserting HTML for 'Close' Button into Layer Control Tree Container
 				LayerControlContainer.insertAdjacentHTML('afterbegin', CollapseBtn);
 
+				// Selection of the 'Close' Button 
 				var layerCollapseBtn = document.querySelector(
 					'body > div > main > section > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div:nth-child(1)'
 				);
 
+				// Adding Click Event Listener on 'Close' Button to hide Layer Control Tree
 				layerCollapseBtn.addEventListener('click', () => {
 					document
 						.querySelector('div.header-bg > span')
@@ -540,14 +566,17 @@
 						);
 				});
 
+				// Selection of the Title Banner
 				var titleSpan = document.querySelector('div.header-bg');
 
+				// Adding Click Event Listener on Banner to Remove Banner from View
 				titleSpan.addEventListener('click', () => {
 					document.querySelector('body > div > main > section').removeChild(titleSpan);
 					console.log('Title Span Clicked!');
 				});
 			}
 
+			// Asyncronous Function to Fetch Supabase Library Data
 			async function meterAdditionData() {
 				try {
 					const libs = await fetchData();
@@ -558,8 +587,11 @@
 				}
 			}
 
+			// Calling Asycronous Function for Adding Library Data
 			meterAdditionData();
 
+
+			// Addition of GPS Locate Control to Map
 			L.control
 				.locate({
 					icon: 'leaflet-control-locate-location-arrow',
@@ -569,6 +601,7 @@
 		}
 	});
 
+	// Function to Destroy on Close
 	onDestroy(async () => {
 		if (map) {
 			console.log('Unloading Leaflet map.');
