@@ -35,7 +35,6 @@
 
 	// Initalizing Leaflet Map on Mount of Svelte
 	onMount(async () => {
-		console.log(window.innerWidth);
 		if (browser) {
 			const L = await import('leaflet');
 			await import('leaflet.locatecontrol');
@@ -66,9 +65,20 @@
 			// Assigning Mapbox API Token
 			var accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-			// Creating MapBox Tile Layer
-			L.tileLayer(
+			// Creating MapBox Light Theme Tile Layer
+			var lightTheme = L.tileLayer(
 				'https://api.mapbox.com/styles/v1/stahlstradamus/cloecokpb001v01p80phr35aj/tiles/{z}/{x}/{y}?access_token=' +
+					accessToken,
+				{
+					attribution:
+						'© <a href="https://www.mapbox.com/contribute/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+					maxZoom: 25
+				}
+			);
+
+			// Creating MapBox Dark Theme Tile Layer
+			var darkTheme = L.tileLayer(
+				'https://api.mapbox.com/styles/v1/stahlstradamus/clrb52eso006901pi7jv416qa/tiles/{z}/{x}/{y}?access_token=' +
 					accessToken,
 				{
 					attribution:
@@ -85,7 +95,10 @@
 			// Assigning Base Maps for Layer Control Tree
 			var baseTree = {
 				label: 'Base Maps',
-				children: []
+				children: [
+					{ label: 'Light Theme', layer: lightTheme },
+                	{ label: 'Dark Theme', layer: darkTheme }
+				]
 			};
 
 			// Options for Layer Control Tree
@@ -155,7 +168,6 @@
 				lastZoom = zoom;
 			});
 
-
 			// Asyncronous Function to create Markers for Data
 			async function addMarkersToMap(map, libs) {
 				var icon = L.icon({
@@ -199,7 +211,7 @@
 				var markersLayer = new L.LayerGroup();
 				map.addLayer(markersLayer);
 
-				console.log('libs: ', libs.libraries);
+				// console.log('libs: ', libs.libraries);
 
 				// Adding tooltips to each Marker
 				libs.libraries.forEach((e, i) => {
@@ -318,6 +330,10 @@
 					    </tr>
 					  </tbody>
 					</table>
+					<label class="switch">
+						<span class="slider round">AED Inspected: </span>
+						<input type="checkbox">
+						</label>
 										`;
 
 					// Binding Pop Content to Correct Marker
@@ -546,7 +562,7 @@
 				// Inserting HTML for 'Close' Button into Layer Control Tree Container
 				LayerControlContainer.insertAdjacentHTML('afterbegin', CollapseBtn);
 
-				// Selection of the 'Close' Button 
+				// Selection of the 'Close' Button
 				var layerCollapseBtn = document.querySelector(
 					'body > div > main > section > div > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > section > div:nth-child(1)'
 				);
@@ -580,7 +596,7 @@
 			async function meterAdditionData() {
 				try {
 					const libs = await fetchData();
-					console.log(libs);
+					// console.log(libs);
 					addMarkersToMap(map, libs);
 				} catch (error) {
 					console.error('Error: ', error);
@@ -589,7 +605,6 @@
 
 			// Calling Asycronous Function for Adding Library Data
 			meterAdditionData();
-
 
 			// Addition of GPS Locate Control to Map
 			L.control
