@@ -639,6 +639,7 @@
 <style>
 	@import 'leaflet/dist/leaflet.css';
 	@import 'leaflet-search/dist/leaflet-search.src.css';
+	
 	section div {
 		height: 100vh;
 	}
@@ -683,4 +684,5 @@
 		height: auto;
 		line-height: 1.5;
 	}
+	
 </style>
