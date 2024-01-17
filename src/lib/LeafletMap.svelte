@@ -65,9 +65,10 @@
 			// Assigning Mapbox API Token
 			var accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+
 			// Creating MapBox Light Theme Tile Layer
 			var lightTheme = L.tileLayer(
-				'https://api.mapbox.com/styles/v1/stahlstradamus/cloecokpb001v01p80phr35aj/tiles/{z}/{x}/{y}?access_token=' +
+				'https://api.mapbox.com/styles/v1/stahlstradamus/clrb4kx8p005v01qo3vaef7k7/tiles/{z}/{x}/{y}?access_token=' +
 					accessToken,
 				{
 					attribution:
@@ -131,6 +132,10 @@
 			var allSites = L.featureGroup();
 			var adminSites = L.featureGroup();
 			var aedCheck = L.featureGroup();
+			var ehsCheck = L.featureGroup();
+			var roofCheck = L.featureGroup();
+			var mewpCheck = L.featureGroup();
+			var hvacCheck = L.featureGroup();
 
 			// Asyncronous Fucction to Call Supabase Library Data
 			async function fetchData() {
@@ -295,6 +300,22 @@
 
 					if (e.aed_check != true) {
 						markers[e.code].addTo(aedCheck);
+					}
+
+					if (e.ehs_inspection === "JTS") {
+						markers[e.code].addTo(ehsCheck);
+					}
+
+					if (e.roof_inventory === "JTS") {
+						markers[e.code].addTo(roofCheck);
+					}
+
+					if (e.mewp_inventory === "JTS") {
+						markers[e.code].addTo(mewpCheck);
+					}
+
+					if (e.hvac_inspections === "JTS") {
+						markers[e.code].addTo(hvacCheck);
 					}
 
 					// console.log(e);
@@ -543,7 +564,12 @@
 							label: 'Projects',
 							selectAllCheckbox: false,
 							collapsed: false,
-							children: [{ label: 'AEDs', layer: aedCheck }]
+							children: [
+								{ label: 'AEDs', layer: aedCheck },
+								{ label: 'EHS Inspection', layer: ehsCheck },
+								{ label: 'Roof Inventory', layer: roofCheck},
+								{ label: 'MEWP Inventory', layer: mewpCheck}
+							]
 						}
 					]
 				};
@@ -635,7 +661,7 @@
 	</div>
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.4a
+		0.0.5a
 	</div>
 </section>
 
