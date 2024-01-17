@@ -304,7 +304,7 @@
 										<table>
 					  <thead>
 					    <tr>
-					      <th colspan="2" style="padding-bottom:1em">${e.name}</th>
+					      <th colspan="2" style="padding-bottom:1em; font-size:large;">${e.name}</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -328,12 +328,15 @@
 					      <td style="text-align: right">Coordinator: </td>
 					      <td>${e.coordinator}</td>
 					    </tr>
+						<tr>
+							<td style="text-align: right">AED Inspected: </td>
+					    	<td><label class="toggle"> <input type="checkbox">
+								<div class="slide-toggle"></div></label>
+							</td>
+						</tr>
 					  </tbody>
 					</table>
-					<label class="switch">
-						<span class="slider round">AED Inspected: </span>
-						<input type="checkbox">
-						</label>
+					
 										`;
 
 					// Binding Pop Content to Correct Marker
