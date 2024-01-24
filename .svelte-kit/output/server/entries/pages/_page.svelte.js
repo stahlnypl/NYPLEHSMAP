@@ -19,7 +19,7 @@ const LeafletMap = create_ssr_component(($$result, $$props, $$bindings, slots) =
   });
   $$result.css.add(css);
   return `<section class="svelte-1kfa1ap"><div class="svelte-1kfa1ap"${add_attribute("this", mapElement, 0)}></div> <div class="header-bg svelte-1kfa1ap" data-svelte-h="svelte-18idny7"><span class="svelte-1kfa1ap">NYPL Environmental Health &amp; Safety Map</span></div> <div class="sidebar svelte-1kfa1ap">Longitude: ${escape(lng.toFixed(4))} | Latitude: ${escape(lat.toFixed(4))} | Zoom: ${escape(zoom.toFixed(2))} <br>v:
-		0.0.4a</div> </section>`;
+		0.0.5a</div> </section>`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<main>${validate_component(LeafletMap, "LeafletMap").$$render($$result, {}, {}, {})}</main>`;
