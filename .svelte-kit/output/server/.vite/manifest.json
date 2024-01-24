@@ -37,7 +37,7 @@
     "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js"
   },
   "src/routes/+layout.css": {
-    "file": "_app/immutable/assets/_layout.f9b5aaad.css",
+    "file": "_app/immutable/assets/_layout.1a158899.css",
     "src": "src/routes/+layout.css"
   },
   "src/routes/+layout.js": {
@@ -47,7 +47,7 @@
   },
   "src/routes/+layout.svelte": {
     "css": [
-      "_app/immutable/assets/_layout.f9b5aaad.css"
+      "_app/immutable/assets/_layout.1a158899.css"
     ],
     "file": "entries/pages/_layout.svelte.js",
     "imports": [

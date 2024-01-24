@@ -1,4 +1,4 @@
-input[type=checkbox] {
+.toggle input[type=checkbox] {
     display: none;
   }
   .slide-toggle {
