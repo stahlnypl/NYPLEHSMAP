@@ -41,6 +41,7 @@ declare module '$env/static/private' {
 	export const GIT_ASKPASS: string;
 	export const PIPX_HOME: string;
 	export const CONDA_SCRIPT: string;
+	export const DOTNET_USE_POLLING_FILE_WATCHER: string;
 	export const npm_node_execpath: string;
 	export const GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: string;
 	export const SHLVL: string;
@@ -59,6 +60,7 @@ declare module '$env/static/private' {
 	export const PIPX_BIN_DIR: string;
 	export const DYNAMIC_INSTALL_ROOT_DIR: string;
 	export const NVM_SYMLINK_CURRENT: string;
+	export const DOTNET_RUNNING_IN_CONTAINER: string;
 	export const GRADLE_HOME: string;
 	export const ORYX_DIR: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
@@ -197,6 +199,7 @@ declare module '$env/dynamic/private' {
 		GIT_ASKPASS: string;
 		PIPX_HOME: string;
 		CONDA_SCRIPT: string;
+		DOTNET_USE_POLLING_FILE_WATCHER: string;
 		npm_node_execpath: string;
 		GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: string;
 		SHLVL: string;
@@ -215,6 +218,7 @@ declare module '$env/dynamic/private' {
 		PIPX_BIN_DIR: string;
 		DYNAMIC_INSTALL_ROOT_DIR: string;
 		NVM_SYMLINK_CURRENT: string;
+		DOTNET_RUNNING_IN_CONTAINER: string;
 		GRADLE_HOME: string;
 		ORYX_DIR: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;

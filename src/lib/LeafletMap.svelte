@@ -65,7 +65,6 @@
 			// Assigning Mapbox API Token
 			var accessToken = PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-
 			// Creating MapBox Light Theme Tile Layer
 			var lightTheme = L.tileLayer(
 				'https://api.mapbox.com/styles/v1/stahlstradamus/clrb4kx8p005v01qo3vaef7k7/tiles/{z}/{x}/{y}?access_token=' +
@@ -88,6 +87,11 @@
 				}
 			).addTo(map);
 
+			var baseLayers = {
+  "Dark Theme": darkTheme,
+  "Light Theme": lightTheme
+};
+
 			// Event listener to Display Location Data in Developer Element
 			map.on('move', () => {
 				updateData();
@@ -98,7 +102,7 @@
 				label: 'Base Maps',
 				children: [
 					{ label: 'Light Theme', layer: lightTheme },
-                	{ label: 'Dark Theme', layer: darkTheme }
+					{ label: 'Dark Theme', layer: darkTheme }
 				]
 			};
 
@@ -302,19 +306,19 @@
 						markers[e.code].addTo(aedCheck);
 					}
 
-					if (e.ehs_inspection === "JTS") {
+					if (e.ehs_inspection === 'JTS') {
 						markers[e.code].addTo(ehsCheck);
 					}
 
-					if (e.roof_inventory === "JTS") {
+					if (e.roof_inventory === 'JTS') {
 						markers[e.code].addTo(roofCheck);
 					}
 
-					if (e.mewp_inventory === "JTS") {
+					if (e.mewp_inventory === 'JTS') {
 						markers[e.code].addTo(mewpCheck);
 					}
 
-					if (e.hvac_inspections === "JTS") {
+					if (e.hvac_inspections === 'JTS') {
 						markers[e.code].addTo(hvacCheck);
 					}
 
@@ -567,8 +571,8 @@
 							children: [
 								{ label: 'AEDs', layer: aedCheck },
 								{ label: 'EHS Inspection', layer: ehsCheck },
-								{ label: 'Roof Inventory', layer: roofCheck},
-								{ label: 'MEWP Inventory', layer: mewpCheck}
+								{ label: 'Roof Inventory', layer: roofCheck },
+								{ label: 'MEWP Inventory', layer: mewpCheck }
 							]
 						}
 					]
@@ -613,6 +617,21 @@
 
 				// Selection of the Title Banner
 				var titleSpan = document.querySelector('div.header-bg');
+
+
+				map.on('baselayerchange', function (e) {
+					console.log(e)
+					// Check if the selected layer is the one you want
+					if (e.name === "0") {
+						// Change the font color of the span
+						document.querySelector('body > div > main > section > div.header-bg > span').style.color = '#415462'; // Change to your desired color
+						console.log('light theme');
+					} else {
+						// Reset the font color (optional)
+						document.querySelector('body > div > main > section > div.header-bg > span').style.color = '#dfdfdf'; // Or your default color
+						console.log('dark theme');
+					}
+				});
 
 				// Adding Click Event Listener on Banner to Remove Banner from View
 				titleSpan.addEventListener('click', () => {
@@ -661,14 +680,14 @@
 	</div>
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.5a
+		0.0.6a
 	</div>
 </section>
 
 <style>
 	@import 'leaflet/dist/leaflet.css';
 	@import 'leaflet-search/dist/leaflet-search.src.css';
-	
+
 	section div {
 		height: 100vh;
 	}
@@ -695,7 +714,7 @@
 		padding-bottom: 0.5rem;
 		font-size: x-large;
 		font-weight: normal;
-		color: #415462;
+		color: #dfdfdf;
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	}
 
@@ -713,5 +732,4 @@
 		height: auto;
 		line-height: 1.5;
 	}
-	
 </style>
