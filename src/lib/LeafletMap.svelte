@@ -307,7 +307,10 @@
 					}
 
 					if (e.ehs_inspection === 'JTS') {
+						
+						// markers[e.code]._icon.style.filter="hue-rotate(225deg)";
 						markers[e.code].addTo(ehsCheck);
+						
 					}
 
 					if (e.roof_inventory === 'JTS') {
@@ -696,7 +699,7 @@
 		position: fixed;
 		display: flex;
 		top: 1rem;
-		left: 5rem;
+		left: 3rem;
 		background: rgba(255, 255, 255, 0.2);
 		box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 		backdrop-filter: blur(20px);
@@ -708,11 +711,11 @@
 	}
 
 	.header-bg > span {
-		padding-left: 1rem;
-		padding-right: 1rem;
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
-		font-size: x-large;
+		padding-left: .5rem;
+		padding-right: .5rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		font-size: calc(3vmin);
 		font-weight: normal;
 		color: #dfdfdf;
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
