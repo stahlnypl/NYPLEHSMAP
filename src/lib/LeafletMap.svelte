@@ -386,7 +386,7 @@
 							if(e.ehs_inspection === "JTS") {
 								markers[e.code]._icon.style.filter="brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)";
 								// markers[e.code]._icon.style.backgroundImage="url(/Users/jtylerstahl/Downloads/NYPLEHSMAP-main/static/user.svg)"
-								console.log(markers[e.code]._icon.backgroundImage);
+								// console.log(markers[e.code]._icon.backgroundImage);
 								
 							}
 							
@@ -692,7 +692,7 @@
 			meterAdditionData();
 
 			var controlTree = document.querySelector(
-				'body > div > main > section > div.s--XbdRyr3YKDT.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom > div.leaflet-control-container > div.leaflet-top.leaflet-right'
+				'div.leaflet-control-container > div.leaflet-top.leaflet-right'
 			);
 			controlTree.setAttribute('id', 'layerTree');
 			// console.log(controlTree);
