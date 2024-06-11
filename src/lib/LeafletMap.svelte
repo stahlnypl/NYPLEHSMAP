@@ -16,24 +16,24 @@
 
 	// console.log('Supabase: ', supabase);
 
-	// Calling Empty Variables
+	// Calling Empty Variables //
 	let mapElement;
 	let map;
 	let lng, lat, zoom;
 
-	// Assigning Initial View Values
+	// Assigning Initial View Values //
 	lng = -74.0;
 	lat = 40.7;
 	zoom = 10;
 
-	// Function for Developer Element
+	// Function for Developer Element //
 	function updateData() {
 		zoom = map.getZoom();
 		lng = map.getCenter().lng;
 		lat = map.getCenter().lat;
 	}
 
-	// Initalizing Leaflet Map on Mount of Svelte
+	// Initalizing Leaflet Map on Mount of Svelte //
 	onMount(async () => {
 		if (browser) {
 			const L = await import('leaflet');
@@ -87,10 +87,10 @@
 				}
 			).addTo(map);
 
-			var baseLayers = {
-  "Dark Theme": darkTheme,
-  "Light Theme": lightTheme
-};
+			// var baseLayers = {
+			// 	'Dark Theme': darkTheme,
+			// 	'Light Theme': lightTheme
+			// };
 
 			// Event listener to Display Location Data in Developer Element
 			map.on('move', () => {
@@ -140,6 +140,7 @@
 			var roofCheck = L.featureGroup();
 			var mewpCheck = L.featureGroup();
 			var hvacCheck = L.featureGroup();
+			var noSites = L.featureGroup();
 
 			// Asyncronous Fucction to Call Supabase Library Data
 			async function fetchData() {
@@ -231,45 +232,45 @@
 						offset: [10, 0]
 					});
 
-					// console.log(e)
+					// console.log(Data);
 
 					// Creating Markers, Assigning icons, and Adding to Layer
 					if (e.code === 'SASB') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: sasbIcon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LPA') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: lpaIcon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'SCH') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: schIcon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'LSC') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: lscIcon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					} else if (e.code === 'TN') {
 						markers[e.code] = L.marker([e.Y, e.X], { icon: tnIcon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					} else {
 						markers[e.code] = L.marker([e.Y, e.X], { icon, title: e.code })
 							.bindTooltip(tooltip)
-							.openTooltip()
-							.addTo(map);
-						markersLayer.addLayer(markers[e.code]);
+							.openTooltip();
+						// .addTo(map);
+						// markersLayer.addLayer(markers[e.code]);
 					}
 
 					// Marking Sites that are closed
@@ -295,7 +296,7 @@
 					} else if (e.network === 'SI') {
 						markers[e.code].addTo(sisle);
 					} else if (e.network === 'NYPL') {
-						markers[e.code].addTo(adminSites);
+						// markers[e.code].addTo(adminSites);
 					}
 
 					if (e.name != null) {
@@ -307,10 +308,8 @@
 					}
 
 					if (e.ehs_inspection === 'JTS') {
-						
-						// markers[e.code]._icon.style.filter="hue-rotate(225deg)";
 						markers[e.code].addTo(ehsCheck);
-						
+						// console.log('EHS Button Checked!');
 					}
 
 					if (e.roof_inventory === 'JTS') {
@@ -324,6 +323,11 @@
 					if (e.hvac_inspections === 'JTS') {
 						markers[e.code].addTo(hvacCheck);
 					}
+
+					// // Selection of the 'Close' Button
+					// var ehsCheckClick = document.querySelector(
+					// 	'div.leaflet-top.leaflet-right > div > section > div.leaflet-control-layers-overlays > div.leaflet-layerstree-children > div:nth-child(2) > div.leaflet-layerstree-children > div:nth-child(2) > div > span:nth-child(2) > label > input'
+					// );
 
 					// console.log(e);
 
@@ -372,6 +376,25 @@
 
 					// Marker Properties Array Check
 					// console.log(i, markers[e.code].alt, e.name)
+
+					waitForElm('#layerTree').then((elm) => {
+						// console.log('Element is ready');
+						// console.log(elm);
+						var Radiobtn = document.querySelectorAll('input[name="radio"]');
+
+						Radiobtn[3].addEventListener('input', () => {
+							if(e.ehs_inspection === "JTS") {
+								markers[e.code]._icon.style.filter="brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)";
+								// markers[e.code]._icon.style.backgroundImage="url(/Users/jtylerstahl/Downloads/NYPLEHSMAP-main/static/user.svg)"
+								console.log(markers[e.code]._icon.backgroundImage);
+								
+							}
+							
+						});
+					
+						// console.log(Radiobtn[0]);
+
+					});
 				});
 
 				//... adding data in searchLayer ...
@@ -390,14 +413,17 @@
 				// Assigning Data to Layer Control Data
 				var mapRoutes = {
 					label: 'Branches',
-					selectAllCheckbox: true,
+					layer: allSites,
+					radioGroup: 'radio',
 					// layer: allSites,
 					children: [
 						{
 							label: 'Networks',
+							// selectAllCheckbox:true,
 							children: [
 								{
 									label: 'Bronx',
+									collapsed: true,
 									children: [
 										{
 											label: 'West Bronx',
@@ -462,6 +488,7 @@
 								},
 								{
 									label: 'Manhattan',
+									collapsed: true,
 									children: [
 										{
 											label: 'West Manhattan',
@@ -497,7 +524,6 @@
 												{ label: '96th St', layer: markers['NRS'] },
 												{ label: 'Aguilar', layer: markers['AG'] },
 												{ label: 'Countee Cullen', layer: markers['CC'] },
-												{ label: 'Grand Central', layer: markers['GCB'] },
 												{ label: 'Harlem', layer: markers['HL'] },
 												{ label: 'Roosevelt Island', layer: markers['RI'] },
 												{ label: 'Cathedral', layer: markers['CA'] },
@@ -522,7 +548,6 @@
 												{ label: 'Mulberry St', layer: markers['ML'] },
 												{ label: 'New Amsterdam', layer: markers['LM'] },
 												{ label: 'Ottendorfer', layer: markers['OT'] },
-												{ label: 'Science, Industry, & Business', layer: markers['SIBL'] },
 												{ label: 'Seward Park', layer: markers['SE'] },
 												{ label: "Tompkin's Square", layer: markers['TS'] }
 											]
@@ -532,7 +557,7 @@
 								{
 									label: 'Staten Island',
 									// layer: sisle,
-									selectAllCheckbox: true,
+									selectAllCheckbox: false,
 									collapsed: true,
 									children: [
 										{ label: 'Charleston', layer: markers['CN'] },
@@ -554,7 +579,7 @@
 								{
 									label: 'Admin',
 									// layer: adminSites,
-									selectAllCheckbox: true,
+									selectAllCheckbox: false,
 									collapsed: true,
 									children: [
 										{ label: 'Library Services Center', layer: markers['LSC'] },
@@ -572,10 +597,16 @@
 							selectAllCheckbox: false,
 							collapsed: false,
 							children: [
-								{ label: 'AEDs', layer: aedCheck },
-								{ label: 'EHS Inspection', layer: ehsCheck },
-								{ label: 'Roof Inventory', layer: roofCheck },
-								{ label: 'MEWP Inventory', layer: mewpCheck }
+								{ label: '', layer: noSites, radioGroup: 'radio' },
+								{ label: 'AEDs', layer: aedCheck, radioGroup: 'radio' },
+								{ label: 'EHS Inspection', layer: ehsCheck, radioGroup: 'radio' },
+								{ label: 'Roof Inventory', layer: roofCheck, radioGroup: 'radio' },
+								{ label: 'MEWP Inventory', layer: mewpCheck, radioGroup: 'radio' }
+
+								// { label: 'AEDs', layer: aedCheck },
+								// { label: 'EHS Inspection', layer: ehsCheck },
+								// { label: 'Roof Inventory', layer: roofCheck },
+								// { label: 'MEWP Inventory', layer: mewpCheck }
 							]
 						}
 					]
@@ -621,17 +652,20 @@
 				// Selection of the Title Banner
 				var titleSpan = document.querySelector('div.header-bg');
 
-
 				map.on('baselayerchange', function (e) {
-					console.log(e)
+					console.log(e);
 					// Check if the selected layer is the one you want
-					if (e.name === "0") {
+					if (e.name === '0') {
 						// Change the font color of the span
-						document.querySelector('body > div > main > section > div.header-bg > span').style.color = '#415462'; // Change to your desired color
+						document.querySelector(
+							'body > div > main > section > div.header-bg > span'
+						).style.color = '#415462'; // Change to your desired color
 						console.log('light theme');
 					} else {
 						// Reset the font color (optional)
-						document.querySelector('body > div > main > section > div.header-bg > span').style.color = '#dfdfdf'; // Or your default color
+						document.querySelector(
+							'body > div > main > section > div.header-bg > span'
+						).style.color = '#dfdfdf'; // Or your default color
 						console.log('dark theme');
 					}
 				});
@@ -657,6 +691,38 @@
 			// Calling Asycronous Function for Adding Library Data
 			meterAdditionData();
 
+			var controlTree = document.querySelector(
+				'body > div > main > section > div.s--XbdRyr3YKDT.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom > div.leaflet-control-container > div.leaflet-top.leaflet-right'
+			);
+			controlTree.setAttribute('id', 'layerTree');
+			// console.log(controlTree);
+
+			function waitForElm(selector) {
+				return new Promise((resolve) => {
+					if (document.querySelector(selector)) {
+						return resolve(document.querySelector(selector));
+					}
+
+					const observer = new MutationObserver((mutations) => {
+						// console.log(mutations)
+						if (document.querySelector(selector)) {
+							resolve(document.querySelector(selector));
+						}
+					});
+
+					// If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
+					observer.observe(document.querySelector('#layerTree'), {
+						attributes: true,
+						childList: true,
+						subtree: false,
+						characterData: false
+					});
+					// observer.disconnect();
+				});
+			}
+
+
+
 			// Addition of GPS Locate Control to Map
 			L.control
 				.locate({
@@ -681,9 +747,12 @@
 	<div class="header-bg">
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
+	<div>
+		<span>Last Updated: 6/11/2024</span>
+	</div>
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.6a
+		0.0.7a
 	</div>
 </section>
 
@@ -711,8 +780,8 @@
 	}
 
 	.header-bg > span {
-		padding-left: .5rem;
-		padding-right: .5rem;
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
 		padding-top: 0.25rem;
 		padding-bottom: 0.25rem;
 		font-size: calc(3vmin);
