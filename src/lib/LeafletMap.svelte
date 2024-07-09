@@ -601,7 +601,8 @@
 								{ label: 'AEDs', layer: aedCheck, radioGroup: 'radio' },
 								{ label: 'EHS Inspection', layer: ehsCheck, radioGroup: 'radio' },
 								{ label: 'Roof Inventory', layer: roofCheck, radioGroup: 'radio' },
-								{ label: 'MEWP Inventory', layer: mewpCheck, radioGroup: 'radio' }
+								{ label: 'MEWP Inventory', layer: mewpCheck, radioGroup: 'radio' },
+								{ label: 'HVAC Inspections', layer: hvacCheck, radioGroup: 'radio' }
 
 								// { label: 'AEDs', layer: aedCheck },
 								// { label: 'EHS Inspection', layer: ehsCheck },
