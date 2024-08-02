@@ -4,6 +4,7 @@
 	import { createClient } from '@supabase/supabase-js';
 	import { PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
+	import { loadJSONData } from './components/dataLoader.js';
 
 	// Initialize Supabase client
 	const supabaseUrl = 'https://fcmkyfkiiblxmbgwuegf.supabase.co';
@@ -195,28 +196,28 @@
 					style: function (feature) {
 						switch (feature.properties.Network) {
 							case "L-MH":
-								return { color: '#e9c213' };
+								return { color: '#0059FF' };
 							case "E-MH":
-								return { color: '#ed9223' };
+								return { color: '#5DB2D4' };
 							case "W-MH":
-								return { color: '#e75d1e' };
+								return { color: '#2E85E9' };
 							case "W-BX":
-								return { color: '#bd3f37' };
+								return { color: '#A690FE' };
 							case "C-BX":
-								return { color: '#7f3835' };
+								return { color: '#7B48FE' };
 							case "E-BX":
-								return { color: '#7f3835' };
+								return { color: '#5100FF' };
 							case "N-SI":
-								return { color: '#7f3835' };
-							case "E-BX":
-								return { color: '#7f3835' };
+								return { color: '#89E88D' };
+							case "S-SI":
+								return { color: '#187900' };
 						}
 					},
 					weight: 1,
-					fillOpacity: 0.75
+					fillOpacity: 0.5
 				};
 
-				console.log('NET Style: ', Netstyle);
+				// console.log('NET Style: ', Netstyle);
 
 				// Adding featureGroup
 				JsonData.features.forEach((c) => {
