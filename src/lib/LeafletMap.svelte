@@ -141,6 +141,14 @@
 			var mewpCheck = L.featureGroup();
 			var hvacCheck = L.featureGroup();
 			var noSites = L.featureGroup();
+			var netLMH = L.featureGroup();
+			var netEMH = L.featureGroup();
+			var netWMH = L.featureGroup();
+			var netWBX = L.featureGroup();
+			var netCBX = L.featureGroup();
+			var netEBX = L.featureGroup();
+			var netNSI = L.featureGroup();
+			var netSSI = L.featureGroup();
 
 			// Asyncronous Fucction to Call Supabase Library Data
 			async function fetchData() {
@@ -177,6 +185,72 @@
 				}
 				lastZoom = zoom;
 			});
+
+			// Loading GeoJSON from component
+			const JsonData = await loadJSONData();
+
+			// Styling GeoJSON
+			if (JsonData) {
+				var Netstyle = {
+					style: function (feature) {
+						switch (feature.properties.Network) {
+							case "L-MH":
+								return { color: '#e9c213' };
+							case "E-MH":
+								return { color: '#ed9223' };
+							case "W-MH":
+								return { color: '#e75d1e' };
+							case "W-BX":
+								return { color: '#bd3f37' };
+							case "C-BX":
+								return { color: '#7f3835' };
+							case "E-BX":
+								return { color: '#7f3835' };
+							case "N-SI":
+								return { color: '#7f3835' };
+							case "E-BX":
+								return { color: '#7f3835' };
+						}
+					},
+					weight: 1,
+					fillOpacity: 0.75
+				};
+
+				console.log('NET Style: ', Netstyle);
+
+				// Adding featureGroup
+				JsonData.features.forEach((c) => {
+					var Net_vals = c.properties.Network;
+
+					if (Net_vals === "L-MH") {
+						L.geoJSON(c, Netstyle).addTo(netLMH);
+					}
+					if (Net_vals === "E-MH") {
+						L.geoJSON(c, Netstyle).addTo(netEMH);
+					}
+					if (Net_vals === "W-MH") {
+						L.geoJSON(c, Netstyle).addTo(netWMH);
+					}
+					if (Net_vals === "W-BX") {
+						L.geoJSON(c, Netstyle).addTo(netWBX);
+					}
+					if (Net_vals === "C-BX") {
+						L.geoJSON(c, Netstyle).addTo(netCBX);
+					}
+					if (Net_vals === "E-BX") {
+						L.geoJSON(c, Netstyle).addTo(netEBX);
+					}
+					if (Net_vals === "N-SI") {
+						L.geoJSON(c, Netstyle).addTo(netNSI);
+					}
+					if (Net_vals === "S-SI") {
+						L.geoJSON(c, Netstyle).addTo(netSSI);
+					}
+				});
+
+				// Adding Layers to Map
+				var Net_Data = L.geoJSON(JsonData, Netstyle);
+			}
 
 			// Asyncronous Function to create Markers for Data
 			async function addMarkersToMap(map, libs) {
@@ -593,6 +667,29 @@
 							]
 						},
 						{
+							label: 'Networks',
+							selectAllCheckbox: false,
+							collapsed: false,
+							children: [
+								{
+									label: 'Networks',
+									selectAllCheckbox: false,
+									collapsed: true,
+									children: [
+										{ label: 'Networks', layer: Net_Data },
+										{ label: 'West Bronx', layer: netWBX },
+										{ label: 'Central Bronx', layer: netCBX },
+										{ label: 'East Bronx', layer: netEBX },
+										{ label: 'West Manhattan', layer: netWMH },
+										{ label: 'East Manhattan', layer: netEMH },
+										{ label: 'Lower Manhattan', layer: netLMH },
+										{ label: 'North Staten Island', layer: netNSI },
+										{ label: 'South Staten Island', layer: netSSI },
+									]
+								}
+							]
+						},
+						{
 							label: 'Projects',
 							selectAllCheckbox: false,
 							collapsed: false,
@@ -749,11 +846,11 @@
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
 	<div>
-		<span>Last Updated: 6/11/2024</span>
+		<span>Last Updated: 8/1/2024</span>
 	</div>
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.7a
+		0.0.8a
 	</div>
 </section>
 
