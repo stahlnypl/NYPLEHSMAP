@@ -4,7 +4,7 @@
 	import { createClient } from '@supabase/supabase-js';
 	import { PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import { PUBLIC_MAPBOX_ACCESS_TOKEN } from '$env/static/public';
-	import { loadJSONData } from './components/dataLoader.js';
+	import { loadJSONData } from './components/dataloader.js';
 
 	// Initialize Supabase client
 	const supabaseUrl = 'https://fcmkyfkiiblxmbgwuegf.supabase.co';
@@ -150,6 +150,9 @@
 			var netEBX = L.featureGroup();
 			var netNSI = L.featureGroup();
 			var netSSI = L.featureGroup();
+			var netBX = L.featureGroup();
+			var netMH = L.featureGroup();
+			var netSI = L.featureGroup();
 
 			// Asyncronous Fucction to Call Supabase Library Data
 			async function fetchData() {
@@ -195,21 +198,21 @@
 				var Netstyle = {
 					style: function (feature) {
 						switch (feature.properties.Network) {
-							case "L-MH":
+							case 'L-MH':
 								return { color: '#0059FF' };
-							case "E-MH":
+							case 'E-MH':
 								return { color: '#5DB2D4' };
-							case "W-MH":
+							case 'W-MH':
 								return { color: '#2E85E9' };
-							case "W-BX":
+							case 'W-BX':
 								return { color: '#A690FE' };
-							case "C-BX":
+							case 'C-BX':
 								return { color: '#7B48FE' };
-							case "E-BX":
+							case 'E-BX':
 								return { color: '#5100FF' };
-							case "N-SI":
+							case 'N-SI':
 								return { color: '#89E88D' };
-							case "S-SI":
+							case 'S-SI':
 								return { color: '#187900' };
 						}
 					},
@@ -223,29 +226,37 @@
 				JsonData.features.forEach((c) => {
 					var Net_vals = c.properties.Network;
 
-					if (Net_vals === "L-MH") {
+					if (Net_vals === 'L-MH') {
 						L.geoJSON(c, Netstyle).addTo(netLMH);
+						L.geoJSON(c, Netstyle).addTo(netMH);
 					}
-					if (Net_vals === "E-MH") {
+					if (Net_vals === 'E-MH') {
 						L.geoJSON(c, Netstyle).addTo(netEMH);
+						L.geoJSON(c, Netstyle).addTo(netMH);
 					}
-					if (Net_vals === "W-MH") {
+					if (Net_vals === 'W-MH') {
 						L.geoJSON(c, Netstyle).addTo(netWMH);
+						L.geoJSON(c, Netstyle).addTo(netMH);
 					}
-					if (Net_vals === "W-BX") {
+					if (Net_vals === 'W-BX') {
 						L.geoJSON(c, Netstyle).addTo(netWBX);
+						L.geoJSON(c, Netstyle).addTo(netBX);
 					}
-					if (Net_vals === "C-BX") {
+					if (Net_vals === 'C-BX') {
 						L.geoJSON(c, Netstyle).addTo(netCBX);
+						L.geoJSON(c, Netstyle).addTo(netBX);
 					}
-					if (Net_vals === "E-BX") {
+					if (Net_vals === 'E-BX') {
 						L.geoJSON(c, Netstyle).addTo(netEBX);
+						L.geoJSON(c, Netstyle).addTo(netBX);
 					}
-					if (Net_vals === "N-SI") {
+					if (Net_vals === 'N-SI') {
 						L.geoJSON(c, Netstyle).addTo(netNSI);
+						L.geoJSON(c, Netstyle).addTo(netSI);
 					}
-					if (Net_vals === "S-SI") {
+					if (Net_vals === 'S-SI') {
 						L.geoJSON(c, Netstyle).addTo(netSSI);
+						L.geoJSON(c, Netstyle).addTo(netSI);
 					}
 				});
 
@@ -458,17 +469,15 @@
 						var Radiobtn = document.querySelectorAll('input[name="radio"]');
 
 						Radiobtn[3].addEventListener('input', () => {
-							if(e.ehs_inspection === "JTS") {
-								markers[e.code]._icon.style.filter="brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)";
+							if (e.ehs_inspection === 'JTS') {
+								markers[e.code]._icon.style.filter =
+									'brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)';
 								// markers[e.code]._icon.style.backgroundImage="url(/Users/jtylerstahl/Downloads/NYPLEHSMAP-main/static/user.svg)"
 								// console.log(markers[e.code]._icon.backgroundImage);
-								
 							}
-							
 						});
-					
-						// console.log(Radiobtn[0]);
 
+						// console.log(Radiobtn[0]);
 					});
 				});
 
@@ -601,7 +610,6 @@
 												{ label: 'Countee Cullen', layer: markers['CC'] },
 												{ label: 'Harlem', layer: markers['HL'] },
 												{ label: 'Roosevelt Island', layer: markers['RI'] },
-												{ label: 'Cathedral', layer: markers['CA'] },
 												{ label: 'Webster', layer: markers['WB'] },
 												{ label: 'Yorkville', layer: markers['YV'] }
 											]
@@ -667,25 +675,44 @@
 								}
 							]
 						},
+						{ label: 'Clear Selection', layer: noSites, radioGroup: 'radio' },
 						{
-							label: 'Networks',
+							label: 'Network Areas',
+							layer: Net_Data,
 							selectAllCheckbox: false,
-							collapsed: false,
+							collapsed: true,
 							children: [
 								{
-									label: 'Networks',
+									label: 'Bronx',
+									layer: netBX,
 									selectAllCheckbox: false,
 									collapsed: true,
 									children: [
-										{ label: 'Networks', layer: Net_Data },
 										{ label: 'West Bronx', layer: netWBX },
 										{ label: 'Central Bronx', layer: netCBX },
-										{ label: 'East Bronx', layer: netEBX },
+										{ label: 'East Bronx', layer: netEBX }
+									]
+								},
+
+								{
+									label: 'Manhattan',
+									layer: netMH,
+									selectAllCheckbox: false,
+									collapsed: true,
+									children: [
 										{ label: 'West Manhattan', layer: netWMH },
 										{ label: 'East Manhattan', layer: netEMH },
-										{ label: 'Lower Manhattan', layer: netLMH },
+										{ label: 'Lower Manhattan', layer: netLMH }
+									]
+								},
+								{
+									label: 'Staten Island',
+									layer: netSI,
+									selectAllCheckbox: false,
+									collapsed: true,
+									children: [
 										{ label: 'North Staten Island', layer: netNSI },
-										{ label: 'South Staten Island', layer: netSSI },
+										{ label: 'South Staten Island', layer: netSSI }
 									]
 								}
 							]
@@ -695,7 +722,6 @@
 							selectAllCheckbox: false,
 							collapsed: false,
 							children: [
-								{ label: '', layer: noSites, radioGroup: 'radio' },
 								{ label: 'AEDs', layer: aedCheck, radioGroup: 'radio' },
 								{ label: 'EHS Inspection', layer: ehsCheck, radioGroup: 'radio' },
 								{ label: 'Roof Inventory', layer: roofCheck, radioGroup: 'radio' },
@@ -820,8 +846,6 @@
 				});
 			}
 
-
-
 			// Addition of GPS Locate Control to Map
 			L.control
 				.locate({
@@ -846,12 +870,11 @@
 	<div class="header-bg">
 		<span>NYPL Environmental Health & Safety Map</span>
 	</div>
-	<div>
-		<span>Last Updated: 8/1/2024</span>
-	</div>
+
 	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} <br />v:
-		0.0.8a
+		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} 
+		<br />v: 0.0.8a
+		<br />Updated: 08/06/2024
 	</div>
 </section>
 
@@ -859,7 +882,7 @@
 	@import 'leaflet/dist/leaflet.css';
 	@import 'leaflet-search/dist/leaflet-search.src.css';
 
-	section div {
+	section div:first-child {
 		height: 100vh;
 	}
 
