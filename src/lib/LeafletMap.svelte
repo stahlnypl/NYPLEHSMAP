@@ -873,7 +873,7 @@
 
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} 
-		<br />v: 0.0.8a
+		<br />v: 0.0.9a
 		<br />Updated: 08/06/2024
 	</div>
 </section>
