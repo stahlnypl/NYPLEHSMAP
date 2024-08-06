@@ -470,8 +470,8 @@
 
 						Radiobtn[3].addEventListener('input', () => {
 							if (e.ehs_inspection === 'JTS') {
-								markers[e.code]._icon.style.filter =
-									'brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)';
+								// markers[e.code]._icon.style.filter =
+								// 	// 'brightness(0) saturate(100%) invert(58%) sepia(28%) saturate(257%) hue-rotate(242deg) brightness(83%) contrast(80%)';
 								// markers[e.code]._icon.style.backgroundImage="url(/Users/jtylerstahl/Downloads/NYPLEHSMAP-main/static/user.svg)"
 								// console.log(markers[e.code]._icon.backgroundImage);
 							}
@@ -502,7 +502,7 @@
 					// layer: allSites,
 					children: [
 						{
-							label: 'Networks',
+							label: 'Branches',
 							// selectAllCheckbox:true,
 							children: [
 								{
@@ -873,7 +873,7 @@
 
 	<div class="sidebar">
 		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)} 
-		<br />v: 0.0.9a
+		<br />v: 0.0.10a
 		<br />Updated: 08/06/2024
 	</div>
 </section>
