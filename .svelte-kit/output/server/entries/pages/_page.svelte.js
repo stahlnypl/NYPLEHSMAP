@@ -18,7 +18,7 @@ const LeafletMap = create_ssr_component(($$result, $$props, $$bindings, slots) =
   onDestroy(async () => {
   });
   $$result.css.add(css);
-  return `<section class="svelte-ui1f2z"><div class="svelte-ui1f2z"${add_attribute("this", mapElement, 0)}></div> <div class="header-bg svelte-ui1f2z" data-svelte-h="svelte-18idny7"><span class="svelte-ui1f2z">NYPL Environmental Health &amp; Safety Map</span></div> <div class="sidebar svelte-ui1f2z">Longitude: ${escape(lng.toFixed(4))} | Latitude: ${escape(lat.toFixed(4))} | Zoom: ${escape(zoom.toFixed(2))} <br>v: 0.0.9a
+  return `<section class="svelte-ui1f2z"><div class="svelte-ui1f2z"${add_attribute("this", mapElement, 0)}></div> <div class="header-bg svelte-ui1f2z" data-svelte-h="svelte-18idny7"><span class="svelte-ui1f2z">NYPL Environmental Health &amp; Safety Map</span></div> <div class="sidebar svelte-ui1f2z">Longitude: ${escape(lng.toFixed(4))} | Latitude: ${escape(lat.toFixed(4))} | Zoom: ${escape(zoom.toFixed(2))} <br>v: 0.0.10a
 		<br>Updated: 08/06/2024</div> </section>`;
 });
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
